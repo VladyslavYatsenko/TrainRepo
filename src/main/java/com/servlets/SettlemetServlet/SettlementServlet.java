@@ -1,7 +1,8 @@
-package com.servlets;
+package com.servlets.SettlemetServlet;
 
 import com.classes.DAO.DBWorker;
 import com.classes.passanger.Passanger;
+import com.classes.train.Train;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,7 +34,6 @@ public class SettlementServlet extends HttpServlet {
         passangersList = dbWorker.getPassangersList();
         System.out.println("Train id" + request.getParameter("trainId"));
         System.out.println(passangersList);
-        PrintWriter out = response.getWriter();
         passanger = passangersList.get(passangersList.size()-1);
         System.out.println("Passanger_id:" + passanger.getPassangerId());
         System.out.println("Train_id: " + passanger.getTrainId());
@@ -42,7 +43,33 @@ public class SettlementServlet extends HttpServlet {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        out.print("Payed, ");
-        out.print("Order created");
+        String passangerFirstName=dbWorker.getPassangerFirstName(passanger.getPassangerId());
+        String passangerLastName=dbWorker.getPassangerLastName(passanger.getPassangerId());
+        int trainNumber=dbWorker.getTrainNumber(passanger.getTrainId());
+        String initialStation=dbWorker.getInitialStation(passanger.getTrainId());
+        String endStation=dbWorker.getEndStation(passanger.getTrainId());
+        String departureDate=dbWorker.getDepartureDate(passanger.getTrainId());
+        String departureTime=dbWorker.getDepartureTime(passanger.getTrainId());
+        String arrivalDate=dbWorker.getArrivalDate(passanger.getTrainId());
+        String arrivalTime=dbWorker.getArrivalTime(passanger.getTrainId());
+        double cost=dbWorker.getCost(passanger.getTrainId());
+        request.setAttribute("passangerFirstName",passangerFirstName);
+        request.setAttribute("passangerLastName",passangerLastName);
+        request.setAttribute("trainNumber",trainNumber);
+        request.setAttribute("initialStation",initialStation);
+        request.setAttribute("endStation",endStation);
+        request.setAttribute("departureDate",departureDate);
+        request.setAttribute("departureTime",departureTime);
+        request.setAttribute("arrivalDate",arrivalDate);
+        request.setAttribute("arrivalTime",arrivalTime);
+        request.setAttribute("cost",cost);
+        dbWorker.closeConnection();
+        getServletContext().getRequestDispatcher("/billPage.jsp").forward(request, response);
+
+
+
+
+
+
     }
 }

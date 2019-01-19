@@ -9,18 +9,35 @@ package com.servlets;
         import javax.servlet.http.HttpServletRequest;
         import javax.servlet.http.HttpServletResponse;
         import java.io.IOException;
-        import java.util.LinkedList;
-        import java.util.List;
+        import java.util.*;
 
 @WebServlet("/FirstServlet")
 public class FirstServlet extends HttpServlet {
-
+    DBWorker dbWorker;
+    Set<String> trainsInitialStation;
+    Set<String> trainsEndStation;
+    List<Train> fullTrainsList;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        dbWorker=new DBWorker();
+        dbWorker.connectDb();
+        dbWorker.initTrainsList();
+        trainsInitialStation=new TreeSet<>();
+        trainsEndStation=new TreeSet<>();
+        fullTrainsList=new ArrayList<>();
+        fullTrainsList=dbWorker.getTrainsList();
+        for(Train t:fullTrainsList){
+            trainsInitialStation.add(t.getInitialStation());
+            trainsEndStation.add(t.getEndStation());
+        }
+        System.out.println("Init train: "+trainsEndStation);
+        System.out.println("Departyre" +trainsInitialStation);
+        request.setAttribute("trainsInitialStation", trainsInitialStation);
+        request.setAttribute("trainsEndStation", trainsEndStation);
+        dbWorker.closeConnection();
         getServletContext().getRequestDispatcher("/chooseTrainPage.jsp").forward(request, response);
 
     }

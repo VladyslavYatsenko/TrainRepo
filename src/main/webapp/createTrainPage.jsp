@@ -48,13 +48,13 @@
         <tr>
             <td>Arrival Time:</td>
             <td> <input type="time" name="arrivalTime"></td>
-            <input type="submit" name="Create Train">
-        </tr>
-        <%--<tr>--%>
-            <%--<td>--%>
 
-            <%--</td>--%>
-        <%--</tr>--%>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" name="Create Train">
+            </td>
+        </tr>
     </table>
 </form>
 </body>

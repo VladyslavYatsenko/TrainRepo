@@ -22,8 +22,8 @@ public class CreateTrainServlet extends HttpServlet {
         PrintWriter out=response.getWriter();
         int trainNumber = Integer.parseInt(request.getParameter("trainNumber"));
         String initialStation = request.getParameter("initialStation");
-        String endStation = request.getParameter("endStation");
         double cost = Double.parseDouble(request.getParameter("cost"));
+        String endStation = request.getParameter("endStation");
         String departureDate = request.getParameter("departureDate");
         String departureTime = request.getParameter("departureTime");
         String arrivalDate = request.getParameter("arrivalDate");
@@ -39,8 +39,10 @@ public class CreateTrainServlet extends HttpServlet {
             dbWorker.getStatement().executeUpdate(query);
             System.out.print("Train added");
         }catch (SQLException ex){
+            out.print("Cant add train,try again");
             ex.printStackTrace();
         }
-
+        out.print("Train Created");
+        dbWorker.closeConnection();
     }
 }

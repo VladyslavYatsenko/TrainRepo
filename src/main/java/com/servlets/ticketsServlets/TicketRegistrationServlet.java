@@ -50,7 +50,8 @@ public class TicketRegistrationServlet extends HttpServlet {
         }
         System.out.println("User train is:"+userTrain);
         request.setAttribute("userTrain",userTrain);
-        getServletContext().getRequestDispatcher("/settlementPage.jsp").forward(request, response);
         dbWorker.closeConnection();
+        getServletContext().getRequestDispatcher("/settlementPage.jsp").forward(request, response);
+
     }
 }

@@ -9,27 +9,24 @@
 <body>
 <form action="TicketInitializationServlet">
     <table border="1" bgcolor="#dc143c" cellpadding="2" cellspacing="3">
+
         <tr>
-            <td>Choose Initial Station:</td>
+            <td>Choose Initial Station :</td>
             <td>
-                <select name="initialStation" style="width: 100%">
-                    <option value="Kyiv">Kyiv</option>
-                    <option value="Odessa">Odessa</option>
-                    <option value="Lviv">Lviv</option>
-                    <option value="Dnipro">Dnipro</option>
-                    <option value="Moscow">Moscow</option>
+                <select name="initialStation">
+                    <c:forEach var="trainsInitialStation" items="${trainsInitialStation}">
+                        <option>${trainsInitialStation.toString()}</option>
+                    </c:forEach>
                 </select>
             </td>
         </tr>
         <tr>
-           <td>Choose End Station :</td>
+            <td>Choose End Station :</td>
             <td>
-                <select name="endStation"style="width: 100%">
-                    <option value="Moscow">Moscow</option>
-                    <option value="Minsk">Minsk</option>
-                    <option value="Kyiv">Kyiv</option>
-                    <option value="Lviv">Lviv</option>
-                    <option value="Kharkiv">Kharkiv</option>
+                <select name="endStation">
+                    <c:forEach var="trainsEndStation" items="${trainsEndStation}">
+                        <option>${trainsEndStation.toString()}</option>
+                    </c:forEach>
                 </select>
             </td>
         </tr>

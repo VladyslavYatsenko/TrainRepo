@@ -17,6 +17,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -35,29 +36,33 @@ public class TicketInitializationServlet extends HttpServlet {
         dbWorker.connectDb();
         dbWorker.initTrainsList();
         fullTrainsList = dbWorker.getTrainsList();
-        System.out.println("Trains List" + fullTrainsList);
-        String initialStation = request.getParameter("initialStation");
-        String endStation = request.getParameter("endStation");
-        String date = request.getParameter("date");
-        String time = request.getParameter("time");
-        LocalTime userTime= LocalTime.parse(time);
-
-        System.out.println(time);
-        for (Train train : fullTrainsList) {
-            System.out.println("Train->" + train);
-            LocalTime trainTime=LocalTime.parse(train.getDepartureTime());
-            if (initialStation.equals(train.getInitialStation())
-                    && endStation.equals(train.getEndStation())
-                    && date.equals(train.getDepartureDate())
-                    && trainTime.isAfter(userTime)) {//СДЕЛАТЬ Departure ТАЙМ
-                usersTrainsList.add(train);
-                System.out.println(usersTrainsList);
+        try{
+            System.out.println("Trains List" + fullTrainsList);
+            String initialStation = request.getParameter("initialStation");
+            String endStation = request.getParameter("endStation");
+            String date = request.getParameter("date");
+            String time = request.getParameter("time");
+            LocalTime userTime= LocalTime.parse(time);
+            System.out.println(time);
+            for (Train train : fullTrainsList) {
+                System.out.println("Train->" + train);
+                LocalTime trainTime=LocalTime.parse(train.getDepartureTime());
+                if (initialStation.equals(train.getInitialStation())
+                        && endStation.equals(train.getEndStation())
+                        && date.equals(train.getDepartureDate())
+                        && trainTime.isAfter(userTime)) {
+                    usersTrainsList.add(train);
+                    System.out.println(usersTrainsList);
+                }
             }
+        }catch (DateTimeParseException ex){
+            request.getRequestDispatcher("/chooseTrainPage.jsp");
         }
+
         if (usersTrainsList.size() == 0) {
             String info="No available trains on your parameters";
             System.out.println(info);
-            RequestDispatcher rd = request.getRequestDispatcher("/chooseTrainPage.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/errorFinding.jsp");
             rd.forward(request, response);
         }
 //            String query = "SELECT *FROM trains WHERE initial_station = " + "'" + initialStation + "'"
@@ -102,6 +107,7 @@ public class TicketInitializationServlet extends HttpServlet {
 ////                    System.out.println(trainsList);
 ////                } while (rs.next());
 ////            }
+        dbWorker.closeConnection();
         request.setAttribute("trainsList", usersTrainsList);
         RequestDispatcher rd = request.getRequestDispatcher("/registrationPage.jsp");
         rd.forward(request, response);

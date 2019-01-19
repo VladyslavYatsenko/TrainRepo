@@ -25,7 +25,7 @@
         </tr>
         </thead>
         <tbody>
-            <c:forEach var="t" items="${trainsList}">
+        <c:forEach var="t" items="${trainsList}">
             <tr>
                 <td align="center">${t.trainId}</td>
                 <td align="center">${t.trainNumber}</td>
@@ -40,16 +40,14 @@
         </c:forEach>
         </tbody>
         <tr>
-            <%--<td align="center">Choose Train Id:</td>--%>
-            <%--<td align="center"><input type="number"name="trainId"></td>--%>
-                <td>Choose Train id:</td>
-                <td>
-                    <select name="trainId" style="width: 100%">
-                        <c:forEach var="t" items="${trainsList}">
-                            <option>${t.trainId}</option>
-                        </c:forEach>
-                    </select>
-                </td>
+            <td>Choose Train id:</td>
+            <td>
+                <select name="trainId" style="width: 100%">
+                    <c:forEach var="t" items="${trainsList}">
+                        <option>${t.trainId}</option>
+                    </c:forEach>
+                </select>
+            </td>
         </tr>
         <tr>
             <td align="center">Input your name:</td>
@@ -60,7 +58,7 @@
             <td align="center"><input type="text" name="lastName"></td>
         </tr>
         <tr>
-            <td align="center"> <input type="submit" value="Send" style="width: 100%"></td>
+            <td align="center"><input type="submit" value="Send" style="width: 100%"></td>
         </tr>
         <tr>
 

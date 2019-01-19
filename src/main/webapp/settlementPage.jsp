@@ -8,13 +8,14 @@
 <form action="SettlementServlet " method="get">
     <table border="2" bgcolor="#dc143c" cellpadding="2" cellspacing="0">
     <%--${userTrain}--%>
-        <%
-            out.print("Dear ");
-            out.println(request.getParameter("firstName"));
-            out.println(request.getParameter("lastName")+", ");
-            out.println("Your ticket is");
-        %>
+
     <thead>
+    <%
+        out.print("Dear ");
+        out.println(request.getParameter("firstName"));
+        out.println(request.getParameter("lastName")+", ");
+        out.println("Your ticket is");
+    %>
     <tr>
         <th>#Train Id</th>
         <th>Train Number</th>
@@ -38,12 +39,11 @@
         <td align="center">${userTrain.departureTime}</td>
         <td align="center">${userTrain.arrivalDate}</td>
         <td align="center">${userTrain.arrivalTime}</td>
+
     </tr>
     </tbody>
-        <tr>
-            <td><input type="submit" value="Pay?" style="width: 100%"></td>
-        </tr>
     </table>
+    <input type="submit" value="Pay? ">
 </form>
 
 </body>

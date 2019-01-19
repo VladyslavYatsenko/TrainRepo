@@ -9,7 +9,6 @@
 <style>
     a {
         text-decoration: none;
-
     }
     a {
         color: black; /* Цвет ссылок */
@@ -111,7 +110,6 @@ Welcome ${username}
         </c:forEach>
         </tbody>
     </table>
-
 </form>
 <form action="LogoutServlet">
     <input type="submit" value="Logout">

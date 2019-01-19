@@ -1,5 +1,7 @@
 package com.classes.train;
 
+import java.util.Objects;
+
 public class Train {
     public int getTrainId() {
         return trainId;
@@ -40,6 +42,28 @@ public class Train {
     private int trainId;
     private int trainNumber;
     private String initialStation;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Train train = (Train) o;
+        return trainId == train.trainId &&
+                trainNumber == train.trainNumber &&
+                Double.compare(train.cost, cost) == 0 &&
+                Objects.equals(initialStation, train.initialStation) &&
+                Objects.equals(endStation, train.endStation) &&
+                Objects.equals(departureDate, train.departureDate) &&
+                Objects.equals(departureTime, train.departureTime) &&
+                Objects.equals(arrivalDate, train.arrivalDate) &&
+                Objects.equals(arrivalTime, train.arrivalTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(trainId, trainNumber, initialStation, endStation, cost, departureDate, departureTime, arrivalDate, arrivalTime);
+    }
+
     private String endStation;
     private double cost;
     private String departureDate;

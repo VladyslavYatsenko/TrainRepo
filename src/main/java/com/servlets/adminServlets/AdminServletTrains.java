@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @WebServlet("/AdminServletTrains")
 public class AdminServletTrains extends HttpServlet {
@@ -40,6 +38,8 @@ public class AdminServletTrains extends HttpServlet {
         request.setAttribute("fullTrainsList",trainsList);
         request.setAttribute("fullPassangersList",passangersList);
         request.setAttribute("fullOrdersList",ordersList);
+        dbWorker.closeConnection();
         getServletContext().getRequestDispatcher("/adminPage.jsp").forward(request, response);
+
     }
 }
