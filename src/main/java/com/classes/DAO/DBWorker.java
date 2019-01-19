@@ -206,6 +206,7 @@ public class DBWorker {
         String passangerLastName=null;
         try{
             ResultSet rs=st.executeQuery(query);
+            
             while (rs.next()){
                 passangerLastName= rs.getString("passanger_lastName");
             }
